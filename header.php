@@ -19,7 +19,7 @@ if(!isset($_SESSION['username'])){
 </head>
 <body>
     <div class="app-bar">
-		<a class="app-bar-element" href="...">Penilaian Kinerja SMART</a>
+		<a class="app-bar-element" href="#">Penilaian Kinerja SMART</a>
 		<span class="app-bar-divider"></span>
 		<ul class="app-bar-menu">
 			<li><a href="kriteria.php">Kriteria</a></li>

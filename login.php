@@ -53,7 +53,7 @@ include "config.php";
 						}
 					</script>
 					<?php
-				} else{
+				} else {
 					?>
 					<script>
 						$.Notify({
@@ -72,14 +72,14 @@ include "config.php";
 			<div class="input-control text full-size">
 				<label>Username</label>
 				<span class="mif-user prepend-icon"></span>
-				<input type="text" name="username" placeholder="admin untuk dasar username" required>
+				<input type="text" name="username" placeholder="Input username" required>
 			</div>
 			<p></p>
 			<!-- input[type=password] -->
 			<div class="input-control password full-size">
 				<label>Password</label>
 				<span class="mif-key prepend-icon"></span>
-				<input type="password" name="password" placeholder="admin untuk dasar password" required>
+				<input type="password" name="password" placeholder="Input password" required>
 			</div>
 			<button type="submit" class="button primary" style="text-align:center;">Masuk</button>
 		</form>
