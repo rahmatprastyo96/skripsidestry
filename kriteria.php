@@ -24,10 +24,12 @@ $page = isset($_GET['page']) ? $_GET['page'] : "";
 				$bbtk = $bbt + $row['bbtk'];
 				if ($bbtk <= 1) {
 					$nama = $_POST['nama'];
+					$kode = $_POST['kode'];
 					$bobot = $_POST['bobot'] / 100;
-					$stmt2 = $db->prepare("insert into smart_kriteria values('',?,?)");
-					$stmt2->bindParam(1, $nama);
-					$stmt2->bindParam(2, $bobot);
+					$stmt2 = $db->prepare("insert into smart_kriteria values('',?,?,?)");
+					$stmt2->bindParam(1, $kode);
+					$stmt2->bindParam(2, $nama);
+					$stmt2->bindParam(3, $bobot);
 					if ($stmt2->execute()) {
 ?>
 				<script type="text/javascript">
@@ -67,12 +69,14 @@ $page = isset($_GET['page']) ? $_GET['page'] : "";
 				$bbtk2 = $bbtk + $bbt2;
 				if ($bbtk2 <= 1) {
 					$id = $_POST['id'];
+					$kode = $_POST['kode'];
 					$nama = $_POST['nama'];
 					$bobot = $_POST['bobot'] / 100;
-					$stmt2 = $db->prepare("update smart_kriteria set nama_kriteria=?, bobot_kriteria=? where id_kriteria=?");
-					$stmt2->bindParam(1, $nama);
-					$stmt2->bindParam(2, $bobot);
-					$stmt2->bindParam(3, $id);
+					$stmt2 = $db->prepare("update smart_kriteria set kode_kriteria=?, nama_kriteria=?, bobot_kriteria=? where id_kriteria=?");
+					$stmt2->bindParam(1, $kode);
+					$stmt2->bindParam(2, $nama);
+					$stmt2->bindParam(3, $bobot);
+					$stmt2->bindParam(4, $id);
 					if ($stmt2->execute()) {
 		?>
 				<script type="text/javascript">
@@ -105,6 +109,9 @@ $page = isset($_GET['page']) ? $_GET['page'] : "";
 <form method="post">
 	<input type="hidden" name="id" value="<?php echo isset($_GET['id']) ? $_GET['id'] : ''; ?>">
 	<label>Kriteria</label>
+	<div class="input-control text full-size">
+		<input type="text" name="kode" placeholder="Kode Kriteria" value="<?php echo isset($_GET['kode']) ? $_GET['kode'] : ''; ?>">
+	</div>
 	<div class="input-control text full-size">
 		<input type="text" name="nama" placeholder="Nama Kriteria" value="<?php echo isset($_GET['nama']) ? $_GET['nama'] : ''; ?>">
 	</div>
@@ -151,9 +158,10 @@ $page = isset($_GET['page']) ? $_GET['page'] : "";
 		<thead>
 			<tr>
 				<th width="50">ID</th>
+				<th>Kode</th>
 				<th>Kriteria</th>
 				<th width="50">Bobot</th>
-				<th width="240">Aksi</th>
+				<th width="280">Aksi</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -165,10 +173,11 @@ $page = isset($_GET['page']) ? $_GET['page'] : "";
 			?>
 				<tr>
 					<td><?php echo $no++ ?></td>
+					<td><?php echo $row['kode_kriteria'] ?></td>
 					<td><?php echo $row['nama_kriteria'] ?></td>
 					<td><?php echo $row['bobot_kriteria'] ?></td>
 					<td class="align-center">
-						<a href="?page=form&id=<?php echo $row['id_kriteria'] ?>&nama=<?php echo $row['nama_kriteria'] ?>&bobot=<?php echo $row['bobot_kriteria'] ?>" class="button warning"><span class="mif-pencil icon"></span> Edit</a>
+						<a href="?page=form&id=<?php echo $row['id_kriteria'] ?>&kode=<?php echo $row['kode_kriteria'] ?>&nama=<?php echo $row['nama_kriteria'] ?>&bobot=<?php echo $row['bobot_kriteria'] ?>" class="button warning"><span class="mif-pencil icon"></span> Edit</a>
 						<a href="?page=hapus&id=<?php echo $row['id_kriteria'] ?>" class="button danger"><span class="mif-cancel icon"></span> Hapus</a>
 					</td>
 				</tr>

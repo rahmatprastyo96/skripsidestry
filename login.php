@@ -3,67 +3,76 @@ include "config.php";
 ?>
 <!DOCTYPE html>
 <html>
+
 <head>
-	<meta charset="utf-8"/>
+	<meta charset="utf-8" />
 	<title>Penilaian Kinerja Metode SMART</title>
-    <link href="css/metro.css" rel="stylesheet">
-    <link href="css/metro-icons.css" rel="stylesheet">
-    <link href="css/metro-schemes.css" rel="stylesheet">
-    <link href="css/metro-responsive.css" rel="stylesheet">
-    <script src="js/jquery.js"></script>
-    <script src="js/metro.js"></script>
+	<link href="css/metro.css" rel="stylesheet">
+	<link href="css/metro-icons.css" rel="stylesheet">
+	<link href="css/metro-schemes.css" rel="stylesheet">
+	<link href="css/metro-responsive.css" rel="stylesheet">
+	<script src="js/jquery.js"></script>
+	<script src="js/metro.js"></script>
 </head>
+
 <body onload="runPB1()">
-    <div class="app-bar">
+	<div class="app-bar">
 		<a class="app-bar-element" href="login.php">Penilaian Kinerja Metode SMART</a>
 		<a class="app-bar-element place-right">About</a>
 	</div>
-	
+
 	<h2 style="text-align:center;margin:100px auto 0 auto;">Login</h2>
 	<div style="margin:15px auto;width:320px;background:#eee;border:1px solid #ddd;padding:20px;">
 		<?php
-		if(isset($_POST['username']) && isset($_POST['password'])){
+		if (isset($_POST['username']) && isset($_POST['password'])) {
 			$user = $_POST['username'];
 			$pass = md5($_POST['password']);
-			$stmt = $db->prepare("SELECT * from smart_admin where username='$user' and password='$pass' limit 0,1");
-			$stmt->execute();
-			$row = $stmt->fetch();
-				if($row['username']==$user && $row['password']=$pass){
-					session_start();
-					$_SESSION['id'] = $row['id_admin'];
-					$_SESSION['nama'] = $row['nama_admin'];
-					$_SESSION['username'] = $row['username'];
-					?>
-					<div class="progress ani large" id="pb1" data-animate="500" data-color="ribbed-amber" data-role="progress"></div>
-					<script>
-						var interval1;
-						function runPB1(){
-							clearInterval(interval1);
-							var pb = $("#pb1").data('progress');
-							var val = 0;
-							interval1 = setInterval(function(){
-								val += 10;
-								pb.set(val);
-								if (val >= 100) {
-									location.href='index.php';
-									val = 0;
-									clearInterval(interval1);
-								}
-							}, 100);
-						}
-					</script>
-					<?php
-				} else {
-					?>
-					<script>
-						$.Notify({
-							caption: 'Maaf',
-							content: 'Anda mungkin salah memasukkan username dan password, silahkan coba lagi!',
-							type: 'alert'
-						});
-					</script>
-					<?php
-				}
+			$line1 = mysqli_query($db1, "select * from smart_admin where username = '$user' and password = '$pass';");
+			if ($line2 = mysqli_fetch_array($line1)) {
+				session_start();
+				$_SESSION['id'] = $line2['id_admin'];
+				$_SESSION['nama'] = $line2['nama_admin'];
+				$_SESSION['username'] = $line2['username'];
+				// $_SESSION['tipe'] = $line2['tipe'];
+		?>
+				<div class="progress ani large" id="pb1" data-animate="500" data-color="ribbed-amber" data-role="progress"></div>
+				<script>
+					var interval1;
+
+					function runPB1() {
+						clearInterval(interval1);
+						var pb = $("#pb1").data('progress');
+						var val = 0;
+						interval1 = setInterval(function() {
+							val += 10;
+							pb.set(val);
+							if (val >= 100) {
+								location.href = 'home.php';
+								val = 0;
+								clearInterval(interval1);
+							}
+						}, 100);
+					}
+				</script>
+				<script>
+					$.Notify({
+						caption: 'Sukses',
+						content: 'Anda berhasil Login!',
+						type: 'success'
+					});
+				</script>
+			<?php
+			} else {
+			?>
+				<script>
+					$.Notify({
+						caption: 'Maaf',
+						content: 'Anda mungkin salah memasukkan username dan password, silahkan coba lagi!',
+						type: 'alert'
+					});
+				</script>
+		<?php
+			}
 		}
 		?>
 		<form method="post">
@@ -84,6 +93,7 @@ include "config.php";
 			<button type="submit" class="button primary" style="text-align:center;">Masuk</button>
 		</form>
 	</div>
-	
+
 </body>
+
 </html>

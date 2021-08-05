@@ -51,14 +51,20 @@ INSERT INTO `smart_admin` (`id_admin`, `nama_admin`, `username`, `password`) VAL
 
 CREATE TABLE IF NOT EXISTS `smart_alternatif` (
   `id_alternatif` int(11) NOT NULL,
+  `tag_pegawai` int(11) DEFAULT NULL,
   `nama_alternatif` varchar(45) NOT NULL,
   `jabatan` varchar(150) CHARACTER SET latin1 DEFAULT NULL,
   `bagian` varchar(150) CHARACTER SET latin1 DEFAULT NULL,
+  `jenis_kelamin` enum('laki-laki','perempuan') CHARACTER SET latin1 DEFAULT NULL,
+  `status` enum('AKTIF','TIDAK AKTIF') CHARACTER SET latin1 DEFAULT 'AKTIF',
   `nilai_utility` double NOT NULL,
   `hasil_alternatif` double NOT NULL,
   `ket_alternatif` text NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;
-
+ALTER TABLE `smart_alternatif`
+  ADD PRIMARY KEY (`id_alternatif`);
+ALTER TABLE `smart_alternatif`
+  MODIFY `id_alternatif` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=1;
 -- --------------------------------------------------------
 
 --
@@ -68,10 +74,11 @@ CREATE TABLE IF NOT EXISTS `smart_alternatif` (
 CREATE TABLE IF NOT EXISTS `smart_alternatif_kriteria` (
   `id_alternatif` int(11) NOT NULL,
   `id_kriteria` int(11) NOT NULL,
-  `nilai_kriteria` int(11),
+  `nilai_kriteria` int(11) NOT NULL,
   `nilai_alternatif_kriteria` double NOT NULL,
   `bobot_alternatif_kriteria` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 
 -- --------------------------------------------------------
 
@@ -81,6 +88,7 @@ CREATE TABLE IF NOT EXISTS `smart_alternatif_kriteria` (
 
 CREATE TABLE IF NOT EXISTS `smart_kriteria` (
   `id_kriteria` int(11) NOT NULL,
+  `kode_kriteria` varchar(45) NOT NULL,
   `nama_kriteria` varchar(45) NOT NULL,
   `bobot_kriteria` double NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=latin1;

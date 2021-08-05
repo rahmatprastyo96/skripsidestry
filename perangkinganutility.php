@@ -23,8 +23,8 @@ $page = isset($_GET['page']) ? $_GET['page'] : "";
 				if ($rowx4['id_kriteria'] == true) {
 					$idkri = $rowx4['id_kriteria'];
 					$kri = $_POST['kri'][$idkri];
-					$altkri = $_POST['altkri'][$idkri];
-					$altkriutil = $_POST['altkri'][$idkri]-20;
+					$altkri = $_POST['altkri'];
+					$altkriutil = $_POST['altkri']-20;
 					$hasilutil = $altkriutil/80;
 					$stmt2 = $db->prepare("insert into smart_alternatif_kriteria(id_alternatif,id_kriteria,nilai_kriteria,nilai_alternatif_kriteria) values(?,?,?,?)");
 					$stmt2->bindParam(1, $alt);
@@ -88,7 +88,7 @@ $page = isset($_GET['page']) ? $_GET['page'] : "";
 				<div class="input-control text full-size">
 					
 					
-					<input type="text" name="altkri[<?php echo $row4['id_kriteria'] ?>]" placeholder="Input Nilai" value="<?php echo isset($_GET['altkri']) ? $_GET['altkri'] : ''; ?>">
+					<input type="text" name="altkri" placeholder="Input Nilai" value="<?php echo isset($_GET['altkri']) ? $_GET['altkri'] : ''; ?>">
 
 				</div>
 			</div>
@@ -136,8 +136,8 @@ $page = isset($_GET['page']) ? $_GET['page'] : "";
 	} else {
 	?>
 	<div class="cell colspan2 align-right">
-		<a href="perangkinganutility.php" class="button success">Lihat hasil utility</a>
-		<a href="?page=form" class="button primary">Tambah</a>
+		<a href="execute-rangking.php" class="button success">Eksekusi Perangkingan</a>
+		<a href="perangkingan.php" class="button primary">Kembali</a>
 	</div>
 	</div>
 	<table class="table striped hovered cell-hovered border bordered dataTable" data-role="datatable" data-searching="true">
@@ -150,11 +150,11 @@ $page = isset($_GET['page']) ? $_GET['page'] : "";
 				$stmt2->execute();
 				while ($row2 = $stmt2->fetch()) {
 				?>
-					<th><?php echo $row2['nama_kriteria'] ?></th>
+					<th><?php echo $row2['kode_kriteria'] ?></th>
 				<?php
 				}
 				?>
-				<th width="260">Aksi</th>
+				<!-- <th width="260">Aksi</th> -->
 			</tr>
 		</thead>
 		<tbody>
@@ -177,9 +177,9 @@ $page = isset($_GET['page']) ? $_GET['page'] : "";
 							$stmt4 = $db->prepare("select * from smart_alternatif_kriteria where id_kriteria='" . $row3['id_kriteria'] . "' and id_alternatif='" . $row['id_alternatif'] . "'");
 							$stmt4->execute();
 							while ($row4 = $stmt4->fetch()) {
-								echo $row4['nilai_kriteria'];
+								echo $row4['nilai_alternatif_kriteria'];
 							?>
-								<!--<a href="?page=form&alt=<?php echo $row['id_alternatif'] ?>&kri=<?php echo $row3['id_kriteria'] ?>&nilai=<?php echo $row4['nilai_kriteria'] ?>" style="color:orange"><span class="mif-pencil icon"></span></a>-->
+								<!--<a href="?page=form&alt=<?php echo $row['id_alternatif'] ?>&kri=<?php echo $row3['id_kriteria'] ?>&nilai=<?php echo $row4['nilai_alternatif_kriteria'] ?>" style="color:orange"><span class="mif-pencil icon"></span></a>-->
 							<?php
 							}
 							?>
@@ -187,9 +187,9 @@ $page = isset($_GET['page']) ? $_GET['page'] : "";
 					<?php
 					}
 					?>
-					<td class="align-center">
+					<!-- <td class="align-center">
 						<a href="?page=hapus&alt=<?php echo $row['id_alternatif'] ?>" class="button danger"><span class="mif-cancel icon"></span> Hapus</a>
-					</td>
+					</td> -->
 				</tr>
 			<?php
 			}
