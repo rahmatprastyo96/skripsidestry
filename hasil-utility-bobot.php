@@ -7,10 +7,11 @@ header('Refresh; url=execute-rangking.php');
 	<div class="card-body">
 		<div class="row cells4">
 			<div class="cell colspan2">
-				<h3>Hasil Perangkingan</h3>
+				<h3>Nilai Utility X Bobot</h3>
 			</div>
 			<div class="cell colspan2 align-right">
-				<a href="perangkingan.php" role="button" style="color: white;" class="btn btn-info">Kembali</a>
+				<a href="execute-rangking.php" role="button" style="color: white;" class="btn btn-success">Hasil</a>
+				<a href="perangkingan-utility.php" role="button" style="color: white;" class="btn btn-info">Kembali</a>
 			</div>
 		</div>
 		<div class="table-container">
@@ -29,7 +30,7 @@ header('Refresh; url=execute-rangking.php');
 						}
 						?>
 						<th>Hasil</th>
-						<th>Rangking</th>
+						
 					</tr>
 					<tr>
 						<td>-</td>
@@ -44,14 +45,14 @@ header('Refresh; url=execute-rangking.php');
 						}
 						?>
 						<td>-</td>
-						<td>-</td>
+		
 					</tr>
 				</thead>
 				<tbody>
 					<?php
-					$stmtx = $db->prepare("select * from pegawai  ORDER BY hasil_alternatif DESC");
+					$stmtx = $db->prepare("select * from pegawai ");
 					$noxx = 1;
-					$ranking = 1;
+					// $ranking = 1;
 					$stmtx->execute();
 					while ($rowx = $stmtx->fetch()) {
 					?>
@@ -95,7 +96,6 @@ header('Refresh; url=execute-rangking.php');
 								$stmt2x3y->execute();
 								?>
 							</td>
-							<td><?php echo $ranking++ ?></td>
 
 						</tr>
 					<?php

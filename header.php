@@ -27,77 +27,69 @@ if (!isset($_SESSION['username'])) {
 
 <body>
 	<div class="app-bar">
-		<a class="app-bar-element" href="home.php">Klinik Dental Care Imaya</a>
-		<span class="app-bar-divider"></span>
+		<!-- <a class="app-bar-element" href="home.php" style="text-decoration:none">Klinik Dental Care Imaya</a>
+		<span class="app-bar-divider"></span> -->
 		<ul class="app-bar-menu">
-			<?php if ($_SESSION['username'] != 'admin') { ?>
-				<li><a href="kriteria.php">Kriteria</a></li>
-			<?php
-			}
-			?>
-			<?php if ($_SESSION['username'] != 'admin') { ?>
 
+			<?php if ($_SESSION['level'] == 'admin') { ?>
+				<li class="nav-item">
+					<a href="home.php" class="nav-link">Home</a>
+				</li>
+				<li class="nav-item">
+					<a href="pegawai.php" class="nav-link">Data Pegawai</a>
+				</li>
+				
+				<li class="nav-item">
+					<a target="_blank" href="laporan.php" class="nav-link">Laporan</a>
+				</li>
+				<li class="nav-item">
+					<a href="operator.php" class="nav-link">Pengguna</a>
+				</li>
 			<?php
 			}
 			?>
-			<!-- <li><a href="subkriteria.php">Sub Kriteria</a></li> -->
-			<li><a href="alternatif.php">Data Karyawan</a></li>
-			<li><a href="perangkingan.php">Perangkingan</a></li>
-			<li><a target="_blank" href="laporan.php">Laporan</a></li>
-			<!--<li>
-				<a href="" class="dropdown-toggle">Laporan</a>
-				<ul class="d-menu" data-role="dropdown">
-					<li><a href="">Direct</a></li>
-					<li><a href="">FPDF</a></li>
-					<li><a href="">phpToPDF</a></li>
-					<li><a href="">TCPDF</a></li>
-					<li><a href="">Dompdf</a></li>
-					<li><a href="">Zend_Pdf</a></li>
-					<li><a href="">PDFlib</a></li>
-					<li><a href="">mPDF</a></li>
-				</ul>
-			</li>-->
+			<?php if ($_SESSION['level'] == 'penilai') { ?>
+				<li class="nav-item">
+					<a href="home.php" class="nav-link">Home</a>
+				</li>
+				<li class="nav-item">
+					<a href="kriteria.php" class="nav-link">Kriteria</a>
+				</li>
+				<li class="nav-item">
+					<a href="perangkingan.php" class="nav-link">Penilaian</a>
+				</li class="nav-item">
+				<li class="nav-item">
+					<a target="_blank" href="laporan.php" class="nav-link">Laporan</a>
+				</li>	
+				<!-- <p><?php echo $_SESSION['nama']?> - <?php echo $_SESSION['level']?> </p> -->
+			<?php
+			}
+			?>
+			
 		</ul>
-		<a href="logout.php" class="app-bar-element place-right">Logout</a>
+		<a href="logout.php" class="app-bar-element place-right" style="text-decoration:none">Logout</a>
 	</div>
 
-	<div style="padding:5px 20px;">
+	<div style="padding:50px 20px;">
 		<div class="grid">
 			<div class="row cells5">
-				<!-- <div class="cell">
-
-					<ul class="v-menu">
-						<li class="menu-title">Dashboard</li>
-						<li><a href="index.php"><span class="mif-home icon"></span> Beranda</a></li>
-						<li class="divider"></li>
-						<li class="menu-title">Menu</li>
-						<li><a href="kriteria.php"><span class="mif-florist icon"></span> Kriteria</a></li>
-						<?php if ($_SESSION['username'] != 'penilai') { ?>
-							<li><a href="alternatif.php"><span class="mif-stack icon"></span> Data Karyawan</a></li>
-						<?php
-						}
-						?>
-
-						<?php if ($_SESSION['username'] != 'admin') { ?>
-							<li><a href="perangkingan.php"><span class="mif-books icon"></span> Perangkingan</a></li>
-						<?php
-						}
-						?>
-
-						<li><a target="_blank" href="laporan.php"><span class="mif-file-pdf icon"></span> Laporan</a></li>
-						<?php if ($_SESSION['username'] != 'penilai') { ?>
-							<li class="divider"></li>
-							<li class="menu-title">Pengguna</li>
-							<li><a href="operator.php"><span class="mif-user icon"></span> Operator</a></li>
-							<li><a href="ubahpassword.php"><span class="mif-key icon"></span> Ubah Password</a></li>
-							<li><a href="logout.php"><span class="mif-cross icon"></span> Logout</a></li>
-						<?php
-						}
-						?>
-
-					</ul>
-
-				</div> -->
-				<div class="cell colspan4">
-
-					<div class="card card-primary card-outline" style="center">
+			<!-- <div class="cell">
+				
+				 <ul class="v-menu" style="border:1px solid blue">
+					<li class="menu-title">Dashboard</li>
+					<li><a href="index.php"><span class="mif-home icon"></span> Beranda</a></li>
+					<li class="divider"></li>
+					<li class="menu-title">Menu</li>
+					<li><a href="kriteria.php"><span class="mif-florist icon"></span> Kriteria</a></li>
+					<li><a href="subkriteria.php"><span class="mif-layers icon"></span> Sub Kriteria</a></li>
+					<li><a href="alternatif.php"><span class="mif-stack icon"></span> Alternatif Karyawan</a></li>
+					<li><a href="perangkingan.php"><span class="mif-books icon"></span> Perangkingan</a></li>
+					<li><a target="_blank" href="laporan.php"><span class="mif-file-pdf icon"></span> Laporan</a></li>
+					<li class="divider"></li>
+					<li class="menu-title">Pengguna</li>
+					<li><a href="operator.php"><span class="mif-user icon"></span> Operator</a></li>
+					<li><a href="ubahpassword.php"><span class="mif-key icon"></span> Ubah Password</a></li>
+					<li><a href="logout.php"><span class="mif-cross icon"></span> Logout</a></li>
+				</ul> 
+			
+			</div> -->

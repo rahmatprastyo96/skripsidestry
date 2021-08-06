@@ -5003,8 +5003,8 @@ a.tag {
   display: block;
   width: 100%;
   position: relative;
-  background-color: #0072c6;
-  color: #ffffff;
+  background-color: #ffd700;
+  color: #000000;
   height: 3.125rem;
   -webkit-user-select: none;
      -moz-user-select: none;
@@ -5033,7 +5033,7 @@ a.tag {
 }
 .app-bar .app-bar-element:hover,
 .app-bar .app-bar-element:active {
-  background-color: #005696;
+  background-color: #daf87d;
 }
 .app-bar .app-bar-element.branding {
   padding-left: 1rem;
@@ -5091,7 +5091,7 @@ a.tag {
 .app-bar .app-bar-menu > li > a:hover,
 .app-bar .app-bar-menu > li:active,
 .app-bar .app-bar-menu > li > a:active {
-  background-color: #005696;
+  background-color: #daf87d;
 }
 .app-bar .app-bar-menu > li.branding,
 .app-bar .app-bar-menu > li > a.branding {
@@ -17843,4 +17843,7 @@ p [data-hint] {
 .flex-size-x1000 {
   -webkit-flex: 0 0 1000px;
   flex: 0 0 1000px;
+}
+.table-container {
+	overflow: auto;
 }
