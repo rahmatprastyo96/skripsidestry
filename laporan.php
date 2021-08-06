@@ -57,7 +57,7 @@ if(!isset($_SESSION['username'])){
             <td>-</td>
 		</tr>
 		<?php
-		$stmtx = $db->prepare("select * from smart_alternatif  ORDER BY hasil_alternatif DESC");
+		$stmtx = $db->prepare("select * from pegawai  ORDER BY hasil_alternatif DESC");
 		$noxx = 1;
 		$ranking = 1;
 		$stmtx->execute();
@@ -65,7 +65,7 @@ if(!isset($_SESSION['username'])){
 		?>
 		<tr>
 			<td><?php echo $noxx++ ?></td>
-			<td><?php echo $rowx['nama_alternatif'] ?></td>
+			<td><?php echo $rowx['nama_pegawai'] ?></td>
             <?php
             $stmt3x = $db->prepare("select * from smart_kriteria");
             $stmt3x->execute();
@@ -73,13 +73,13 @@ if(!isset($_SESSION['username'])){
             ?>
 			<td>
                 <?php
-                $stmt4x = $db->prepare("select * from smart_alternatif_kriteria where id_kriteria='".$row3x['id_kriteria']."' and id_alternatif='".$rowx['id_alternatif']."'");
+                $stmt4x = $db->prepare("select * from penilaian where id_kriteria='".$row3x['id_kriteria']."' and id_pegawai='".$rowx['id_pegawai']."'");
                 $stmt4x->execute();
                 while($row4x = $stmt4x->fetch()){
-                	$ida = $row4x['id_alternatif'];
+                	$ida = $row4x['id_pegawai'];
                 	$idk = $row4x['id_kriteria'];
                     echo $kal = $row4x['nilai_alternatif_kriteria']*$row3x['bobot_kriteria'];
-                    $stmt2x3 = $db->prepare("update smart_alternatif_kriteria set bobot_alternatif_kriteria=? where id_alternatif=? and id_kriteria=?");
+                    $stmt2x3 = $db->prepare("update penilaian set bobot_alternatif_kriteria=? where id_pegawai=? and id_kriteria=?");
 					$stmt2x3->bindParam(1,$kal);
 					$stmt2x3->bindParam(2,$ida);
 					$stmt2x3->bindParam(3,$idk);
@@ -92,37 +92,15 @@ if(!isset($_SESSION['username'])){
             ?>
             <td>
             	<?php
-            	$stmt3x2 = $db->prepare("select sum(bobot_alternatif_kriteria) as bak from smart_alternatif_kriteria where id_alternatif='".$rowx['id_alternatif']."'");
+            	$stmt3x2 = $db->prepare("select sum(bobot_alternatif_kriteria) as bak from penilaian where id_pegawai='".$rowx['id_pegawai']."'");
 	            $stmt3x2->execute();
 	            $row3x2 = $stmt3x2->fetch();
-	            $ideas = $rowx['id_alternatif'];
+	            $ideas = $rowx['id_pegawai'];
 	            echo $hsl = $row3x2['bak'];
-	            if($hsl>=80){
-	            	$ket = "Sangat Layak";
-	            } else if($hsl>=60){
-	            	$ket = "Layak";
-	            } else if($hsl>=40){
-	            	$ket = "Dipertimbangkan";
-	            } else{
-	            	$ket = "Tidak Layak";
-	            }
+	           
             	?>
             </td>
 			<td><?php echo $ranking++ ?></td>
-            <!-- <td>
-            	// <?php
-            	// if($hsl>=80){
-	            // 	$ket2 = "Sangat Layak";
-	            // } else if($hsl>=55){
-	            // 	$ket2 = "Layak";
-	            // } else if($hsl>=35){
-	            // 	$ket2 = "Dipertimbangkan";
-	            // } else{
-	            // 	$ket2 = "Tidak Layak";
-	            // }
-	            // echo $ket2;
-            	// ?> 
-            </td> -->
 		</tr>
 		<?php
 		}
